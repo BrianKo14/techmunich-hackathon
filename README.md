@@ -11,7 +11,7 @@
 User binds their expenses to their Lucra ledger via multiple methods:
    - *Contactless ping*: User taps their phone on a dedicated NFC tag to log an expense. Two ways to do this:
       - Triggering lock-screen on use of Google / Apple Wallet (appLinkData / iBeacon APIs)
-      - Host Card Emulation (HCE) to bypass defaul wallets
+      - Host Card Emulation (HCE) to bypass default wallets
    - *Bank sync:* User links their bank account for automatic expense tracking
    - *Email parsing:* User forwards their digital receipts to a dedicated email address
    - *Manual entry:* User inputs expenses directly into the app
