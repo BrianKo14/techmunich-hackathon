@@ -54,3 +54,17 @@ The knowledge network feeds into a Codex engine that generates user-specific das
 There are two parts of the code that remain highly vulnerable to code injection attacks:
 1. The code executor that runs dynamically-generated Python code snippets to compute answers to user queries and process node buffers. Could be sanitized for production, see `knowledge-graph/code_executor.py`.
 2. The Codex-driven dashboard generator that inserts HTML snippets into the dashboard. It's only front-end but it should be sanitized to prevent breaking. See `dashboard-builder/frontend/app.js`.
+
+## 🛠️ Setup instructions
+
+### Knowledge graph
+
+1. Install node packages.
+2. Set up Weaviate and OpenAI API keys in environment (WEAVIATE_URL, WEAVIATE_API_KEY, OPENAI_API_KEY).
+3. See `python3 knowledge-graph/main.py` to see the example provided.
+
+### Dashboard builder
+
+1. Install node packages.
+2. Set up OpenAI API key in environment (OPENAI_API_KEY).
+3. `npm start` and visit `localhost:5173`.
