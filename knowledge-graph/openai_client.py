@@ -41,3 +41,26 @@ def ask_for_code(prompt: str) -> str:
         input=prompt,
     )
     return _strip_code_fences(resp.output_text)
+
+
+def generate_node_summary(node_content: str) -> str:
+    """Generate a short summary (variable name) for a node based on its content."""
+    prompt = (
+        "Generate a concise variable name (in snake_case) that summarizes the following content. "
+        "The name should be descriptive yet brief."
+        "Avoid generic names like 'data' or 'info'."
+        "If the content is empty or meaningless, return 'untitled_node'.\n\n"
+        f"Content:\n{node_content}\n\n"
+        "Variable name:"
+    )
+    resp = client.responses.create(
+        model=MODEL,
+        instructions=_sys,
+        input=prompt,
+    )
+    summary = resp.output_text.strip()
+    if summary:
+        # Sanitize to snake_case
+        summary = re.sub(r"\W+", "_", summary).lower()
+        return summary
+    return None
