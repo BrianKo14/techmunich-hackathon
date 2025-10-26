@@ -161,9 +161,11 @@ class KnowledgeGraph:
 		return execute_snippet(code, user_data=self.data, known_results=known_results)
 
 
-	def execute(self):
-		"""Execute the entire knowledge graph from root to leaves,
-		updating buffers along the way."""
+	def recompute_node(self):
+		"""Re-execute a node's algorithm to update its buffer,
+  		triggering updates downstream as needed."""
+
+		# TODO: implement recompute logic
 		pass
 
 
