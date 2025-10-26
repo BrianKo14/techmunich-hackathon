@@ -1,0 +1,39 @@
+
+# MeMoney Ledger
+### Know your spend on the go: from contactless ping to tidy auto-classified ledger, a self-evolving knowledge graph on Weaviate powers a fully customizable Codex-driven user dashboard
+
+![Whiteboard](whiteboard.png)
+
+## 💡 Our concept in 4 parts
+
+### *1. Wallet dock*
+
+User binds their expenses to their MeMoney Ledger via multiple methods:
+   - *Contactless ping*: User taps their phone on a dedicated NFC tag to log an expense. Two ways to do this:
+      - Triggering lock-screen on use of Google / Apple Wallet (appLinkData / iBeacon APIs)
+      - Host Card Emulation (HCE) to bypass defaul wallets
+   - *Bank sync:* User links their bank account for automatic expense tracking
+   - *Email parsing:* User forwards their digital receipts to a dedicated email address
+   - *Manual entry:* User inputs expenses directly into the app
+
+### *2. Auto-classified ledger*
+
+Vendors, amounts, dates, and categories are parsed and normalized.
+Smart categorization engine, feature generation:
+   - Rules engine ("Lidl → Groceries")
+   - Gradient model (learns from user corrections)
+   - Small LLM re-ranker
+
+### *3. Atlas: the self-evolving ontological context network*
+
+The knowledge graphs stacks lines of thought to build rich and indefinitely-complex understanding.
+
+- User queries generate information nodes containing two things:
+   - The AI-generated scripts to fetch, compute and answer user queries.
+   - Buffered results from previous computation runs; JSONs containing numbers, strings, matplotlib codes, etc.
+- On query, the knowledge graph searches itself for relevant nodes to answer user questions, and binds the new node to these context parents. For semantic search, we implement on Weaviate.
+- On new expense entry, the knowledge graph re-evaluates existing nodes.
+
+### *4. Codex-driven customizible dashboard*
+
+The knowledge network feeds into a Codex engine that generates user-specific dashboards; whether minimalistic or detailed, the right charts, goal-tracker widgets, etc.
