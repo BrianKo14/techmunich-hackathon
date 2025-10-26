@@ -1,5 +1,5 @@
 
-# MeMoney Ledger
+# Lucra
 ### Know your spend on the go: from contactless ping to tidy auto-classified ledger, a self-evolving knowledge graph on Weaviate powers a fully customizable Codex-driven user dashboard
 
 ![Whiteboard](whiteboard.png)
@@ -8,7 +8,7 @@
 
 ### *1. Wallet dock*
 
-User binds their expenses to their MeMoney Ledger via multiple methods:
+User binds their expenses to their Lucra ledger via multiple methods:
    - *Contactless ping*: User taps their phone on a dedicated NFC tag to log an expense. Two ways to do this:
       - Triggering lock-screen on use of Google / Apple Wallet (appLinkData / iBeacon APIs)
       - Host Card Emulation (HCE) to bypass defaul wallets
