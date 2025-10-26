@@ -33,6 +33,7 @@ The knowledge graphs stacks lines of thought to build rich and indefinitely-comp
    - Buffered results from previous computation runs; JSONs containing numbers, strings, matplotlib codes, etc.
 - On query, the knowledge graph searches itself for relevant nodes to answer user questions, and binds the new node to these context parents. For semantic search, we implement on Weaviate.
 - On new expense entry, the knowledge graph re-evaluates existing nodes.
+- This is hidden in the backend.
 
 ### *4. Codex-driven customizible dashboard*
 
