@@ -1,3 +1,6 @@
+# This module manages the knowledge graph implementation on Weaviate,
+# including initialization, node class creation and CRUD operations on nodes.
+
 import os, weaviate
 from weaviate.classes.init import Auth, AdditionalConfig, Timeout
 from weaviate.classes.config import Configure, Property, DataType, ReferenceProperty
@@ -12,7 +15,7 @@ class WeaviateGraph:
 
 	def start_knowledge_graph(self):
 
-		# ---- 1. Start client
+		# ---- Start client
 
 		client = weaviate.connect_to_weaviate_cloud(
 			cluster_url = os.environ["WEAVIATE_URL"],
@@ -22,9 +25,9 @@ class WeaviateGraph:
 		)
 
 
-		# ---- 2. Create node class
+		# ---- Create node class
      
-		# Safe reset
+		# Safe reset in dev
 		if "Node" in client.collections.list_all():
 			client.collections.delete("Node")
 
@@ -45,6 +48,9 @@ class WeaviateGraph:
 
 				Property(name="summary", data_type=DataType.TEXT),	# Summary / variable name for browsing and coding convenience;
 											# the AI may use this to reference the node buffer in future code generation.
+
+				# Note: this could be extended with more metadata properties as needed to support operations and improve efficiency.
+				# Research to develop best practices for knowledge graph schema design would be immediately valuable.
 			],
 			references = [ReferenceProperty(name="parents", target_collection="Node")],
 		)
@@ -84,7 +90,7 @@ class WeaviateGraph:
 
 
 	def get_variable(self, node_id: str) -> Dict[str, Any]:
-		"""Maps node summary to its buffer content."""
+		"""Maps node summary to its buffer content to provide for code generation and execution context."""
   
 		node = self.get_node(node_id)
 		summary = node.properties.get("summary", f"node_{node_id.replace('-', '_')}")

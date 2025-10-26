@@ -3,8 +3,7 @@ import re
 from typing import Optional
 from openai import OpenAI
 
-# MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")
-MODEL = os.getenv("OPENAI_MODEL", "o3")
+MODEL = os.getenv("OPENAI_MODEL", "o3") # We use a very capable model for code generation
 
 _sys = (
     "You are a code generator. "
@@ -34,7 +33,8 @@ def _strip_code_fences(text: str) -> str:
 client = OpenAI()  # reads OPENAI_API_KEY from env
 
 def ask_for_code(prompt: str) -> str:
-    """Send a natural-language request and get back *raw* code only (no ``` or language tag)."""
+    """Send a natural-language request and get back raw code only (no ``` or language tag)."""
+
     resp = client.responses.create(
         model=MODEL,
         instructions=_sys,
@@ -44,7 +44,9 @@ def ask_for_code(prompt: str) -> str:
 
 
 def generate_node_summary(node_content: str) -> str:
-    """Generate a short summary (variable name) for a node based on its content."""
+    """Generate a short summary (variable name) for a node based on its content.
+    Future code generation will use this summary to know when to reference this node buffer."""
+
     prompt = (
         "Generate a concise variable name (in snake_case) that summarizes the following content. "
         "The name should be descriptive yet brief."

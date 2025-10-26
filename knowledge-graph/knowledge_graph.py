@@ -1,10 +1,12 @@
+# This module defines the KnowledgeGraph class that manages a self-evolving knowledge network.
+# It supports querying, node search based on relevance, algorithm generation via AI, node execution.
+
 from weaviate_client import WeaviateGraph
 from code_executor import execute_snippet
 from openai_client import ask_for_code, generate_node_summary
 
 from weaviate.classes.query import Filter, MetadataQuery
 
-import pandas as pd
 from typing import Any, Dict, List
 import json
 
@@ -165,25 +167,10 @@ class KnowledgeGraph:
 		"""Re-execute a node's algorithm to update its buffer,
   		triggering updates downstream as needed."""
 
-		# TODO: implement recompute logic
+		# TODO: we'll skip recompute logic given time-constraints since it's not a source of uncertainty—just a time sink
+		# and not core to the linear compute flow of query -> answer.
 		pass
 
 
 	def close(self):
 		self.graph.close()
-
-
-# Mock user data
-mock_data = pd.DataFrame({
-	"purchase": ["laptop", "headphones", "coffee", "book"],
-	"price": [999.99, 199.99, 4.99, 14.99],
-	"category": ["electronics", "electronics", "groceries", "books"],
-	"timestamp": pd.to_datetime(["2023-01-15", "2023-02-20", "2023-03-05", "2023-04-10"])
-})
-
-k_graph = KnowledgeGraph(user_data=mock_data)
-
-k_graph.query("What is the total amount spent on electronics?")
-k_graph.query("What is the total amount spend on electronics and books?")
-
-k_graph.close()

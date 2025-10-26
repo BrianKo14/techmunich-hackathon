@@ -37,4 +37,20 @@ The knowledge graphs stacks lines of thought to build rich and indefinitely-comp
 
 ### *4. Codex-driven customizible dashboard*
 
-The knowledge network feeds into a Codex engine that generates user-specific dashboards; whether minimalistic or detailed, the right charts, goal-tracker widgets, etc.
+The knowledge network feeds into a Codex engine that generates user-specific dashboards; whether minimalistic or detailed, the right charts, goal-tracker widgets, warnings, etc.
+
+- Updates live as new expenses are added, quickly accessible.
+- User can request new modules via natural language.
+
+
+## 🚀 What we did
+
+- We prototyped the knowledge graph on Weaviate. See `knowledge-graph/`.
+- We prototyped the Codex-driven dashboard generator. See `dashboard-builder/`.
+- We designed a visual identity and implemented it as a frontend app. [See here](https://lucra-finance.lovable.app/).
+
+## 🪲 Vulnerabilities
+
+There are two parts of the code that remain highly vulnerable to code injection attacks:
+1. The code executor that runs dynamically-generated Python code snippets to compute answers to user queries and process node buffers. Could be sanitized for production, see `knowledge-graph/code_executor.py`.
+2. The Codex-driven dashboard generator that inserts HTML snippets into the dashboard. It's only front-end but it should be sanitized to prevent breaking. See `dashboard-builder/frontend/app.js`.

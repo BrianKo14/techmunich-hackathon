@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Dashboard generator prototype</title>
+  <style>
+    :root {
+      --gap: 12px;
+      /* Light mode palette */
+      --bg: #ffffff;
+      --fg: #0b0f14;
+      --muted: #64748b;
+      --card: #ffffff;
+      --stroke: #e5e7eb;
+      --stroke-strong: #d1d5db;
+      --bezel: #0a0a0a;
+    }
+    * { box-sizing: border-box; }
+
+    /* Page centers the phone */
+    body {
+      margin: 0;
+      font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+      background: #f3f4f6;
+      color: var(--fg);
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    /* iPhone-ish frame (390×844 logical viewport) */
+    .phone {
+      width: min(390px, 100%);
+      min-height: 844px;
+      background: var(--bezel);
+      border-radius: 42px;
+      padding: 12px;                   /* bezel thickness */
+      box-shadow:
+        0 20px 40px rgba(2, 6, 23, 0.25),
+        0 2px 6px rgba(2, 6, 23, 0.08);
+      position: relative;
+      display: grid;
+    }
+
+    /* Notch / Dynamic Island */
+    .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 35px;
+      background: #000;
+      border-radius: 22px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Screen area with safe-area padding */
+    .screen {
+      background: var(--bg);
+      border-radius: 32px;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      /* Respect mobile safe-area if viewed on a phone */
+      padding-top: calc(8px + env(safe-area-inset-top));
+      padding-bottom: calc(8px + env(safe-area-inset-bottom));
+    }
+
+    header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--stroke);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      background: var(--bg);
+      position: sticky; /* stays under the notch */
+      top: 0;
+      z-index: 2;
+    }
+    header h1 { margin: 0; font-size: 18px; letter-spacing: .2px; }
+
+    #ask {
+      display: flex; gap: 8px; width: 100%;
+    }
+    #prompt {
+      flex: 1;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--stroke-strong);
+      background: #ffffff;
+      color: var(--fg);
+      outline: none;
+    }
+    #prompt::placeholder { color: var(--muted); }
+
+    button {
+      padding: 10px 14px;
+      border: 1px solid var(--stroke-strong);
+      border-radius: 10px;
+      background: #f8fafc;
+      color: var(--fg);
+      cursor: pointer;
+    }
+    button:hover { background: #f1f5f9; }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: .6; cursor: progress; }
+
+    main {
+      padding: 16px;
+      background: var(--bg);
+    }
+    #grid {
+      display: grid;
+      grid-template-columns: 1fr;               /* one column in phone */
+      gap: var(--gap);
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 120px;
+    }
+    .card header { padding: 10px 12px; border-bottom: 1px solid var(--stroke); font-weight: 600; }
+    .card .content { padding: 12px; }
+    .muted { color: var(--muted); font-size: 12px; margin-left: 8px; }
+
+    /* Small screens: keep a little breathing room around the phone */
+    @media (max-width: 430px) {
+      body { padding: 12px; }
+    }
+
+    /* 1) Keep the phone a fixed size and clip overflow */
+.phone {
+  width: min(390px, 100%);
+  height: 844px;              /* was min-height */
+  background: var(--bezel);
+  border-radius: 42px;
+  padding: 12px;
+  box-shadow:
+    0 20px 40px rgba(2, 6, 23, 0.25),
+    0 2px 6px rgba(2, 6, 23, 0.08);
+  position: relative;
+  display: grid;
+  overflow: hidden;           /* ensure nothing expands the frame */
+}
+
+/* 2) Make the screen the scrolling container so header:sticky works */
+.screen {
+  background: var(--bg);
+  border-radius: 32px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;               /* fill the fixed phone height */
+  overflow-y: auto;           /* scroll INSIDE the phone */
+  overflow-x: hidden;
+  padding-top: calc(8px + env(safe-area-inset-top));
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  overscroll-behavior: contain;         /* avoid scroll chaining */
+  -webkit-overflow-scrolling: touch;    /* smooth momentum on iOS */
+}
+
+/* 3) Let the content area shrink within the grid row to enable scrolling */
+main {
+  padding: 16px;
+  background: var(--bg);
+  min-height: 0;              /* critical for scroll inside grid/flex */
+}
+
+/* (unchanged) header remains sticky relative to .screen */
+header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--stroke);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="phone" role="region" aria-label="iPhone frame">
+    <div class="notch" aria-hidden="true"></div>
+    <div class="screen">
+      <header>
+        <div aria-hidden="true" style="flex-basis:100%;height:12px;"></div>
+        <h1>Dashboard generator prototype</h1>
+        <form id="ask" onsubmit="return false;">
+          <input id="prompt" placeholder="Want to know about your finances?" />
+          <button id="go">Ask</button>
+        </form>
+      </header>
+
+      <main>
+        <div id="grid" aria-live="polite"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

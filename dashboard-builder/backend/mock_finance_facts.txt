@@ -1,0 +1,54 @@
+# Finance Facts — Demo v1
+# PERIOD: 2025-09-26 to 2025-10-25 (ISO dates). Currency: EUR. Numbers are net (after refunds).
+PERIOD_START: 2025-09-26
+PERIOD_END: 2025-10-25
+CURRENCY: EUR
+
+# Income & savings goals
+INCOME_NET_EUR: 1450.00
+SAVINGS_GOAL_NAME: "Emergency fund"
+SAVINGS_GOAL_TARGET_EUR: 300.00
+SAVED_THIS_PERIOD_EUR: 210.00
+SAVINGS_PROGRESS_PCT: 70.0            # (= 210 / 300 * 100)
+SAVINGS_RATE_PCT_OF_INCOME: 14.48      # (= 210 / 1450 * 100)
+
+# Spending totals
+TOTAL_SPENT_EUR: 1124.38
+NUM_TRANSACTIONS: 49
+AVERAGE_TX_EUR: 22.94                  # (= TOTAL_SPENT_EUR / NUM_TRANSACTIONS)
+
+# Category breakdown (simple COICOP-style groupings)
+CATEGORY_HOUSING_EUR: 530.00           # rent/room, utilities share
+CATEGORY_GROCERIES_EUR: 268.70
+CATEGORY_RESTAURANTS_EUR: 152.20
+CATEGORY_TRANSPORT_EUR: 89.00          # local transit (e.g., Deutschlandticket), occasional train
+CATEGORY_SUBSCRIPTIONS_EUR: 29.99
+CATEGORY_ENTERTAINMENT_EUR: 54.49
+
+# “Needs / Wants / Savings” split (for 50/30/20-style visuals)
+NEEDS_EUR: 898.69                       # housing + groceries + transport + subscriptions
+WANTS_EUR: 225.69                       # restaurants + entertainment
+SAVINGS_EUR: 210.00
+
+# Recurring items
+RECURRING:
+  - name: "Deutschlandticket", amount_eur: 49.00, cadence: "monthly", next_charge: 2025-11-01
+  - name: "Spotify", amount_eur: 9.99, cadence: "monthly", next_charge: 2025-11-10
+  - name: "iCloud", amount_eur: 2.99, cadence: "monthly", next_charge: 2025-11-05
+  - name: "Gym", amount_eur: 17.00, cadence: "monthly", next_charge: 2025-11-03
+
+# Top merchants (by spend)
+TOP_MERCHANTS:
+  - { merchant: "REWE", spend_eur: 122.40, tx: 7 }
+  - { merchant: "EDEKA", spend_eur: 83.10, tx: 5 }
+  - { merchant: "Lidl", spend_eur: 63.20, tx: 4 }
+  - { merchant: "DB Bahn", spend_eur: 58.00, tx: 2 }
+  - { merchant: "Asia Bistro", spend_eur: 41.50, tx: 3 }
+
+# Notable trends / facts for the model to visualize (derived or ready-made)
+FACTS:
+  - "Groceries are 23.9% of total spend."
+  - "Restaurants are 13.5% of total spend."
+  - "You saved 70% toward the 300 € goal."
+  - "Savings rate this period: 14.5% of income."
+  - "Average transaction value: 22.94 €."

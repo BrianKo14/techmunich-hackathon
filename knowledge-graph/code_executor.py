@@ -1,4 +1,11 @@
-# WARNING: THIS PART OF THE CODE IS HIGHLY VULNERABLE TO CODE INJECTION ATTACKS. GIVE US THOSE MECHANICAL KEYBOARDS!
+# WARNING: THIS PART OF THE CODE IS HIGHLY VULNERABLE TO CODE INJECTION ATTACKS. GIVE US THAT MECHANICAL KEYBOARD!
+
+# This module is responsible for executing dynamically-generated Python code snippets.
+# It evaluates code that interacts with knowledge graph data to compute answers to user queries
+# and process node buffers.
+
+# This is good for prototyping, but in production we could reduce and verify the code surface area.
+# It is possible to safeguard the execution environment by restricting allowed operation nodes.
 
 from typing import Any, Dict, Union
 import inspect
