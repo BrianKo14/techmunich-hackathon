@@ -61,7 +61,7 @@ There are two parts of the code that remain highly vulnerable to code injection 
 
 1. Install node packages.
 2. Set up Weaviate and OpenAI API keys in environment (WEAVIATE_URL, WEAVIATE_API_KEY, OPENAI_API_KEY).
-3. See `python3 knowledge-graph/main.py` to see the example provided.
+3. See `python3 knowledge-graph/execution_example.py` to see the example provided.
 
 ### Dashboard builder
 
